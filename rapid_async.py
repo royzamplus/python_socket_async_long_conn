@@ -31,12 +31,12 @@ def prepare_msg(msg):
 
 if __name__ == '__main__':
 
-  set_str_list = [ prepare_msg('set\thttp://www.zamplus.com'),
-                   prepare_msg('get\tn9SNLc'),
-                   prepare_msg('set\thttp://www.baidu.com'),
-                   prepare_msg('set\t12170'),
+  str_list = [ 'set\thttp://www.zamplus.com',
+               'get\tn9SNLc',
+               'set\thttp://www.baidu.com',
+               'set\t12170',
                   ]
-  # get_str = )
+  pack_str_list = map(prepare_msg, str_list)
 
   sockets = [connect(), connect(), connect()]
   sock_2_task = dict([(s, i + 1) for i, s in enumerate(sockets)])
@@ -46,10 +46,10 @@ if __name__ == '__main__':
     # send message asynchrosously
     for sock in slist:
 
-      set_str_index = random.randint(0, 2)
+      set_str_index = random.randint(0, 3)
 
-      sock.send(set_str_list[set_str_index])
-      print sock_2_task[sock], 'send message:', set_str_list[set_str_index]
+      sock.send(pack_str_list[set_str_index])
+      print sock_2_task[sock], 'send message:', str_list[set_str_index]
       time.sleep(1)
 
     # receive message asynchrosously
